@@ -2,11 +2,11 @@ import os
 import re
 import xml.etree.ElementTree as ET
 import requests
+from py7zr import SevenZipFile
 from requests import get
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import gdown
-from pyunpack import Archive
 
 class MyGUI(QMainWindow):
     
@@ -42,9 +42,10 @@ class MyGUI(QMainWindow):
             self.listInstalledMods.clear()
             #print(f"Path: {path}")
             if os.path.exists(path):
-                for file in os.listdir(path):
-                    if file.endswith(".iro") or file.endswith(".7z"):
-                        self.listInstalledMods.addItem(file)
+                for file in os.scandir(path):
+                    if file.is_dir() or file.is_file():
+                        if  file.name != "temp":
+                            self.listInstalledMods.addItem(file.name)
 
 
         def parseMods(catalog):
@@ -63,12 +64,16 @@ class MyGUI(QMainWindow):
             selectedMod = self.listAvailableMods.currentItem().text()
             #print(selectedMod)
             url = mods[find_in_list_of_list(mods, selectedMod)][1]
-            url = url.replace(" ", "%20")
+            selectedMod = selectedMod.replace("/",  "-")
             print("Url: " + url)
             modsDir = f"{self.txtModFolder.text()}"
             if "iros://GDrive/" not in url:
-                download(url, f"{modsDir}/{selectedMod}.7z")
-                try2extract(modsDir, selectedMod)
+                if ".iro" in url:
+                    print(f"{modsDir}/{selectedMod}.iro")
+                    download(url, f"{modsDir}/{selectedMod}.iro")
+                else:
+                    download(url, f"{modsDir}/{selectedMod}.7z")
+                    try2extract(modsDir, selectedMod)
             else:
                 id = url.replace("iros://GDrive/", "")
                 out = f"{modsDir}/{selectedMod}.7z"
@@ -95,7 +100,7 @@ def download(url, file_name):
 
 def try2extract(path, selectedMod):
     try:
-        Archive(f"{path}/{selectedMod}.7z").extractall(path)
+        SevenZipFile(f"{path}/{selectedMod}.7z").extractall(f"{path}/{selectedMod}/")
         os.remove(f"{path}/{selectedMod}.7z")
     except:
         print("not a 7z archive")
