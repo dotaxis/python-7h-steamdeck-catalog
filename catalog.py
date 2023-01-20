@@ -95,8 +95,8 @@ class MyGUI(QMainWindow):
                 try2extract(modsDir, selectedMod)
 
             listModsInstalled(modsDir)
-        download("https://raw.githubusercontent.com/tsunamods-codes/7th-Heaven-Catalogs/master/catalogs/qhimm.xml", "./qhimm.xml")
-        download("https://raw.githubusercontent.com/tsunamods-codes/7th-Heaven-Catalogs/master/catalogs/sega.xml", "./sega.xml")
+        download("https://github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/qhimm.xml", "./qhimm.xml")
+        download("https://github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/sega.xml", "./sega.xml")
         listModsAvailable()
         readModsDir()
         self.btnModFolderSave.clicked.connect(setModsDir)
