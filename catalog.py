@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 import xml.etree.ElementTree as ET
 import requests
 from py7zr import SevenZipFile
@@ -79,18 +80,20 @@ class MyGUI(QMainWindow):
             #print(selectedMod)
             url = mods[find_in_list_of_list(mods, selectedMod)][1]
             selectedMod = selectedMod.replace("/",  "-")
-            print("Url: " + url)
+            #print("Url: " + url)
             modsDir = f"{self.txtModFolder.text()}"
             if "iros://GDrive/" not in url:
                 if ".iro" in url:
-                    print(f"{modsDir}/{selectedMod}.iro")
+                    os.remove(f"{modsDir}/{selectedMod}.iro")
                     download(url, f"{modsDir}/{selectedMod}.iro")
                 else:
+                    shutil.rmtree(f"{modsDir}/{selectedMod}")
                     download(url, f"{modsDir}/{selectedMod}.7z")
                     try2extract(modsDir, selectedMod)
             else:
                 id = url.replace("iros://GDrive/", "")
                 out = f"{modsDir}/{selectedMod}.7z"
+                shutil.rmtree(f"{modsDir}/{selectedMod}")
                 gdown.download(id=id, output=out, quiet=False)
                 try2extract(modsDir, selectedMod)
 
@@ -123,13 +126,6 @@ def filename(id):
     file_name = re.search(r'filename="(.*)"', header).group(1)
     print("Gotcha ! File Name is --> "+file_name)
     return file_name
-
-def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-
-    return None
 
 def main():
     app = QApplication([])
