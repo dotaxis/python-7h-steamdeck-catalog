@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>567</height>
+    <height>606</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -22,20 +22,23 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>151</width>
-      <height>21</height>
+      <width>591</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>7th Heaven Mods Folder:</string>
+     <string>7th Heaven Mods Folder</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLineEdit" name="txtModFolder">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>10</y>
-      <width>371</width>
+      <x>10</x>
+      <y>30</y>
+      <width>511</width>
       <height>20</height>
      </rect>
     </property>
@@ -44,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>10</y>
+      <y>30</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -57,9 +60,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>80</y>
       <width>251</width>
-      <height>431</height>
+      <height>441</height>
      </rect>
     </property>
    </widget>
@@ -67,9 +70,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
+      <y>60</y>
       <width>251</width>
-      <height>20</height>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
@@ -83,9 +86,9 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>60</y>
+      <y>80</y>
       <width>251</width>
-      <height>431</height>
+      <height>441</height>
      </rect>
     </property>
    </widget>
@@ -93,9 +96,9 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>40</y>
+      <y>60</y>
       <width>251</width>
-      <height>20</height>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
@@ -109,9 +112,9 @@
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>60</y>
+      <y>80</y>
       <width>71</width>
-      <height>431</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="text">
@@ -121,9 +124,9 @@
    <widget class="QProgressBar" name="progInstallingMod">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>500</y>
-      <width>571</width>
+      <x>10</x>
+      <y>530</y>
+      <width>591</width>
       <height>23</height>
      </rect>
     </property>

@@ -46,8 +46,8 @@ class MyGUI(QMainWindow):
                 listModsInstalled(modsDir)
 
         def listModsAvailable():
-            #parseMods('sega.xml')
-            parseMods('catalog.xml')
+            parseMods('qhimm.xml')
+            parseMods('sega.xml')
             for i in range(0, len(mods) - 1):
                 #print(f"{i}: {mods[i][0]}\nLink: {mods[i][1]}")
                 self.listAvailableMods.addItem(mods[i][0])
@@ -95,7 +95,8 @@ class MyGUI(QMainWindow):
                 try2extract(modsDir, selectedMod)
 
             listModsInstalled(modsDir)
-
+        download("https://raw.githubusercontent.com/tsunamods-codes/7th-Heaven-Catalogs/master/catalogs/qhimm.xml", "./qhimm.xml")
+        download("https://raw.githubusercontent.com/tsunamods-codes/7th-Heaven-Catalogs/master/catalogs/sega.xml", "./sega.xml")
         listModsAvailable()
         readModsDir()
         self.btnModFolderSave.clicked.connect(setModsDir)
