@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>574</height>
+    <height>567</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -66,14 +66,17 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>10</x>
       <y>40</y>
-      <width>91</width>
-      <height>16</height>
+      <width>251</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Available Mods</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QListWidget" name="listInstalledMods">
@@ -89,14 +92,17 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>350</x>
       <y>40</y>
-      <width>91</width>
-      <height>16</height>
+      <width>251</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Installed Mods</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="btnInstallMod">
@@ -115,9 +121,9 @@
    <widget class="QProgressBar" name="progInstallingMod">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>30</x>
       <y>500</y>
-      <width>591</width>
+      <width>571</width>
       <height>23</height>
      </rect>
     </property>
