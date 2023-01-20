@@ -43,7 +43,7 @@ class MyGUI(QMainWindow):
             #print(f"Path: {path}")
             if os.path.exists(path):
                 for file in os.listdir(path):
-                    if file.endswith(".iro"):
+                    if file.endswith(".iro") or file.endswith(".7z"):
                         self.listInstalledMods.addItem(file)
 
 
@@ -63,7 +63,8 @@ class MyGUI(QMainWindow):
             selectedMod = self.listAvailableMods.currentItem().text()
             #print(selectedMod)
             url = mods[find_in_list_of_list(mods, selectedMod)][1]
-            #print("Url: " + url)
+            url = url.replace(" ", "%20")
+            print("Url: " + url)
             modsDir = f"{self.txtModFolder.text()}"
             if "iros://GDrive/" not in url:
                 download(url, f"{modsDir}/{selectedMod}.7z")
@@ -94,7 +95,7 @@ def download(url, file_name):
 
 def try2extract(path, selectedMod):
     try:
-        Archive(f"{path}/{selectedMod}.7z").extractall(f"{path}/{selectedMod}.iro")
+        Archive(f"{path}/{selectedMod}.7z").extractall(path)
         os.remove(f"{path}/{selectedMod}.7z")
     except:
         print("not a 7z archive")
