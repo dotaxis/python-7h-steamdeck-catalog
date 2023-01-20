@@ -16,8 +16,22 @@ class MyGUI(QMainWindow):
         super(MyGUI, self).__init__()
         uic.loadUi("g.ui", self)
         self.show()
+        self.progInstallingMod.setValue(0)
 
-
+        def download(url, file_name):
+            with open(file_name, "wb") as file:
+                response = get(url, stream=True)
+                total_length = response.headers.get('content-length')
+                if total_length is None:  # no content length header
+                    file.write(response.content)
+                else:
+                    dl = 0
+                    total_length = int(total_length)
+                    for data in response.iter_content(chunk_size=4096):
+                        dl += len(data)
+                        file.write(data)
+                        done = int(100 * dl / total_length)
+                        self.progInstallingMod.setValue(done)
 
         def readModsDir():
             if os.path.exists('directory.txt'):
@@ -77,10 +91,7 @@ class MyGUI(QMainWindow):
             else:
                 id = url.replace("iros://GDrive/", "")
                 out = f"{modsDir}/{selectedMod}.7z"
-                try:
-                    gdown.download(id=id, output=out, quiet=False)
-                except:
-                    gdownload(id, out)
+                gdown.download(id=id, output=out, quiet=False)
                 try2extract(modsDir, selectedMod)
 
             listModsInstalled(modsDir)
@@ -89,14 +100,6 @@ class MyGUI(QMainWindow):
         readModsDir()
         self.btnModFolderSave.clicked.connect(setModsDir)
         self.btnInstallMod.clicked.connect(installMod)
-
-def download(url, file_name):
-    # open in binary mode
-    with open(file_name, "wb") as file:
-        # get request
-        response = get(url)
-        # write to file
-        file.write(response.content)
 
 def try2extract(path, selectedMod):
     try:
@@ -120,34 +123,12 @@ def filename(id):
     print("Gotcha ! File Name is --> "+file_name)
     return file_name
 
-def gdownload(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
-
-    session = requests.Session()
-
-    response = session.get(URL, params = { 'id' : id }, stream = True)
-    token = get_confirm_token(response)
-
-    if token:
-        params = { 'id' : id, 'confirm' : token }
-        response = session.get(URL, params = params, stream = True)
-
-    save_response_content(response, destination)
-
 def get_confirm_token(response):
     for key, value in response.cookies.items():
         if key.startswith('download_warning'):
             return value
 
     return None
-
-def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
-
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
 
 def main():
     app = QApplication([])
