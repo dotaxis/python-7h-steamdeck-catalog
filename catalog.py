@@ -35,12 +35,12 @@ class MyGUI(QMainWindow):
             #parseMods('sega.xml')
             parseMods('catalog.xml')
             for i in range(0, len(mods) - 1):
-                print(f"{i}: {mods[i][0]}\nLink: {mods[i][1]}")
+                #print(f"{i}: {mods[i][0]}\nLink: {mods[i][1]}")
                 self.listAvailableMods.addItem(mods[i][0])
 
         def listModsInstalled(path):
             self.listInstalledMods.clear()
-            print(f"Path: {path}")
+            #print(f"Path: {path}")
             if os.path.exists(path):
                 for file in os.listdir(path):
                     if file.endswith(".iro"):
@@ -61,9 +61,9 @@ class MyGUI(QMainWindow):
 
         def installMod():
             selectedMod = self.listAvailableMods.currentItem().text()
-            print(selectedMod)
+            #print(selectedMod)
             url = mods[find_in_list_of_list(mods, selectedMod)][1]
-            print("Url: " + url)
+            #print("Url: " + url)
             modsDir = f"{self.txtModFolder.text()}"
             if "iros://GDrive/" not in url:
                 download(url, f"{modsDir}/{selectedMod}.7z")
