@@ -84,16 +84,19 @@ class MyGUI(QMainWindow):
             modsDir = f"{self.txtModFolder.text()}"
             if "iros://GDrive/" not in url:
                 if ".iro" in url:
-                    os.remove(f"{modsDir}/{selectedMod}.iro")
+                    path = f"{modsDir}/{selectedMod}.iro"
+                    if (os.path.exists(path)): os.remove(path)
                     download(url, f"{modsDir}/{selectedMod}.iro")
                 else:
-                    shutil.rmtree(f"{modsDir}/{selectedMod}")
+                    path = f"{modsDir}/{selectedMod}"
+                    if (os.path.exists(path)): shutil.rmtree(path)
                     download(url, f"{modsDir}/{selectedMod}.7z")
                     try2extract(modsDir, selectedMod)
             else:
                 id = url.replace("iros://GDrive/", "")
                 out = f"{modsDir}/{selectedMod}.7z"
-                shutil.rmtree(f"{modsDir}/{selectedMod}")
+                path = f"{modsDir}/{selectedMod}"
+                if (os.path.exists(path)): shutil.rmtree(path)
                 gdown.download(id=id, output=out, quiet=False)
                 try2extract(modsDir, selectedMod)
 
